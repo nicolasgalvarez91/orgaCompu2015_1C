@@ -1,0 +1,125 @@
+\documentclass[12pt,a4paper,spanish]{article} 
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+
+\usepackage[expansion=true,kerning=true]{microtype}
+\usepackage [T1]{fontenc}
+%\usepackage [latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{makeidx}
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage[nottoc]{tocbibind}
+\usepackage{rotating}
+\usepackage{multirow} 
+\usepackage{array}
+      \topmargin 0in
+      \parindent 0em
+      \parskip 2ex
+\usepackage{anysize}
+\usepackage{fixme}
+\usepackage{utopia}
+%\usepackage{charter}
+\lstset{language=C,commentstyle=\scriptsize,tabsize=2,breaklines=true,showstringspaces=false,basicstyle=\footnotesize,frame=single,numbers=left,numberstyle=\footnotesize,stepnumber=1}
+\marginsize{3cm}{2cm}{1.0cm}{1.0cm}
+
+\setlength{\textwidth}{16cm}
+\setlength{\oddsidemargin}{0.46cm}
+\setlength{\evensidemargin}{0.46cm}
+\setlength{\textheight}{22.3cm}
+
+\pagestyle{plain}
+\makeindex
+
+\begin{document} 
+
+\thispagestyle{empty}
+
+%\date{14 de Septiembre del 2009}
+
+\title{
+\begin{table}[!h]
+	\begin{tabular}{m{2cm}m{15cm}}
+		\multicolumn{1}{l}{}
+		\includegraphics[scale=0.22, bb=0 0 0 0]{logos/Logo-fiuba.PNG} & 
+		 \begin{center}
+		 	\begin{LARGE}
+				Universidad de Buenos Aires	\linebreak \linebreak		 							Facultad de Ingenier\'{i}a  \linebreak \linebreak
+				66.20 - Organizaci\'{o}n de Computadoras \linebreak \linebreak
+				1er. Cuatrimestre de 2015
+			\end{LARGE}
+		 \end{center}\\
+	\end{tabular}
+\end{table}
+\begin{Large}
+ \begin{center}
+		\underline{Trabajo Pr\'{a}tico 0: Infraestructura B\'{a}sica} \linebreak \linebreak
+        Grupo Nro:	
+\end{center}
+\end{Large}
+}
+
+\maketitle
+
+\author{
+\begin{Large}
+ \begin{center}
+		\underline{Integrantes}  \linebreak 
+\end{center}
+\end{Large}
+\begin{center}
+	\begin{tabular}{|| c | c | c ||}
+		\hline
+		\begin{large}Apellido,Nombre\end{large} & 
+		\begin{large}Padr\'{o}n Nro.\end{large} & 
+		\begin{large}E-mail\end{large}\\
+		\hline
+		Fern\'{a}ndez, Nicol\'{a}s  & 88.599 & nflabo@gmail.com\\
+		\hline
+		Loiza, Samanta   & 91.935 & samiloiza@gmail.com\\
+		\hline
+		Alvarez, Nicolás & 93.503   & nicolasgalvarez91@gmail.com\\
+		\hline
+		\end{tabular}
+\end{center}
+}
+
+\newpage
+
+\setcounter{page}{1} 
+\tableofcontents
+\newpage
+
+\section{Resumen}
+
+
+\section{Hip\'{o}tesis}
+
+\newpage
+
+\section{Documentaci\'{o}n de Dise\~{n}o, Implementaci\'{o}n y Utilizaci\'{o}n}
+
+\subsection{Dise\~{n}o e Implementaci\'{o}n}
+
+
+\subsection{Utilizaci\'{o}n}
+
+
+\section{Generaci\'{o}n de Binarios}
+Establecidos sobre la carpeta que contiene todos los archivos .c se debe ejecutar la siguiente instrucci\'{o}n:
+\begin{center}
+gcc -Wall -o tp0 *.c 
+\end{center}
+Si queremos generalos desde otra carpeta distinta a donde estan los .c, debemos indicarle el path:
+\begin{center}
+gcc -Wall -o tp0 /home/orga-comp/tp0/*.c
+\end{center}
+
+
+\section{Ejecuci\'{o}n de Pruebas}
+\newpage
+\section{C\'{o}digo Fuente}
+\newpage
+\section{C\'{o}digo MIPS}
+\end{document}
