@@ -15,7 +15,7 @@ void printHelp() {
 
 	printf("%s", help);
 }
-int checkArguments(int cantidadArgumentos, char* argumentos[],int* cantidad){
+int checkArguments(int cantidadArgumentos, char* argumentos[]){
 	int retorno=1;
 	if ((cantidadArgumentos == 2) && ((strcmp(argumentos[1], "-h") == 0) || (strcmp(argumentos[1], "--help") == 0))) {
 		printHelp();
@@ -24,10 +24,6 @@ int checkArguments(int cantidadArgumentos, char* argumentos[],int* cantidad){
 		printf("Version 1.0\n");
 		retorno=0;
 	}
-
-	*cantidad=cantidadArgumentos;
-	if (*cantidad >= 2)
-		*cantidad-=1;
 
 	return retorno;
 }
@@ -39,7 +35,10 @@ int procesarArchivo(FILE* fd,char* argumentos[],int numeroArchivo){
 	long int bufTam = BUF_TAM;
 
 	if (fd == NULL) {
-		fprintf(stderr, "Imposible abrir %s\n", argumentos[numeroArchivo + 1]);
+		if (numeroArchivo!=-1)
+			fprintf(stderr, "Imposible abrir %s\n", argumentos[numeroArchivo + 1]);
+		else
+			fprintf(stderr, "Error al leer de Stdin\n");
 		return 1;
 	}
 	char** lines;
@@ -91,23 +90,22 @@ void procesarSalidaArchivo(char** lines, int k){
 }
 
 int manejoArchivos(int cantidadParametros,char* argumentos[]){
-	FILE* fd;
-	int i;
-	// Si no hay argumentos considero stdin como el único archivo
-	if (cantidadParametros == 1)
+	FILE* fd=NULL;
+	int i,resultadoProcesamiento=0;
+	// Si no hay argumentos consideramos stdin como el único archivo
+	if (cantidadParametros == 1){
 		fd = stdin;
-
-	// Recorro los archivos para abrir y procesarlos
-	for (i = 0; i < cantidadParametros; i++) {
-		if (cantidadParametros !=1)
+		resultadoProcesamiento=procesarArchivo(fd,argumentos,-1);
+	}else{
+		cantidadParametros-=1;
+		// Recorro los archivos para abrir y procesarlos
+		for (i = 0; i < cantidadParametros && resultadoProcesamiento==0; i++) {
 			fd = fopen(argumentos[i + 1], "r");
-
-		int resultadoProcesamiento=procesarArchivo(fd,argumentos,i);
-
-		if (resultadoProcesamiento!=0)
-			return resultadoProcesamiento;
+			resultadoProcesamiento=procesarArchivo(fd,argumentos,i);
+		}
 	}
-	return 0;
+
+	return resultadoProcesamiento;
 }
 
 

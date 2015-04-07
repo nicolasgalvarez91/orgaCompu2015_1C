@@ -16,7 +16,7 @@
 /*Imprime la ayuda de parámetros para el trabajo práctico*/
 void printHelp();
 /*Se chequean los argumentos y en base a eso se imprime lo necesario */
-int  checkArguments(int,char*[],int*);
+int  checkArguments(int,char*[]);
 /*Manejo global de los archivos, por cada uno se llama al método individual*/
 int  manejoArchivos();
 /*Método para procesamiento de cada archivo, recibe un File Descripto, los argumentos y número de archivo*/

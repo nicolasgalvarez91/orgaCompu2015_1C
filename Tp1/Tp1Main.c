@@ -8,9 +8,8 @@
 #include "Tp1.h"
 
 int main(int argc, char* argv[]){
-	int manejoParametros = 1;
-	if (!checkArguments(argc,argv,&manejoParametros))
+	if (!checkArguments(argc,argv))
 		return 0;
-	return manejoArchivos(manejoParametros,argv);
+	return manejoArchivos(argc,argv);
 }
 
