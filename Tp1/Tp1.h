@@ -22,6 +22,6 @@ int  manejoArchivos();
 /*Método para procesamiento de cada archivo, recibe un File Descripto, los argumentos y número de archivo*/
 int procesarArchivo(FILE*,char*[],int);
 /*Método que procesa la salida de las líneas de los archivos*/
-void procesarSalidaArchivo(char**, int );
+void procesarSalidaArchivo(char**, int,int );
 
 #endif /* TP1_H_ */
