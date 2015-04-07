@@ -48,26 +48,29 @@ int procesarArchivo(FILE* fd,char* argumentos[],int numeroArchivo){
 	while (estado > 0) {
 		char* line;
 		j = 0;
-		line = (char*) malloc(bufTam);
+		line = (char*) malloc(bufTam* sizeof(char));
 
 		while ((estado > 0) && (letra != '\n')){	//mientras haya caracteres para leer y no haya llegado a fin de linea.
 
 			if(j > bufTam) {						//realloc si es necesario
 				bufTam += BUF_TAM;
-				line = realloc(line, bufTam);
+				line = realloc(line,2 * bufTam * sizeof(char));
 			}
 			line[j] = letra;
 			j++;
 			estado = fread(&letra, 1, 1, fd);
 		}
 		if(letra == '\n'){
-			if (k==0)
-				lines = (char**) malloc(sizeof(char*));
-			else
-				lines = realloc (lines,sizeof(char*));
+			if (k==0 || k >= bufTam){
+				lines = (char**) malloc(bufTam*sizeof(char*));
+			}else{
+				lines = realloc (lines,2*bufTam*sizeof(char*));
+			}
 			line[j]='\0';
 			lines[k] = line;
 			k++;
+		}else{
+			free(line);
 		}
 		estado = fread(&letra, 1, 1, fd);
 	}
