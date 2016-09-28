@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <netpbm/pbm.h>
 
 int main( int argc, char *argv[] )  {
-	//argc = nro de argumentos, 2 significa 1, no se porque
-	// argv contiene los argumentos en un array
-
-   int c;
+  //argc = nro de argumentos, 2 significa 1, no se porque
+  // argv contiene los argumentos en un array
 
    char* help = "Uso:\n"
             "\tconway -h\n"
@@ -35,40 +34,55 @@ int main( int argc, char *argv[] )  {
                || (strcmp(argv[1], "--version") == 0))) {
       printf("Conway - Version 1.0\n");
    } else if (argc == 5) {
-   	int filas = atoi(argv[2]);
-   	int columnas = atoi(argv[3]);	
+    int filas = atoi(argv[2]);
+    int columnas = atoi(argv[3]); 
 
-   	printf("Filas: %d\n", filas);
-   	printf("Columnas: %d\n", columnas);
+    printf("Filas: %d\n", filas);
+    printf("Columnas: %d\n", columnas);
 
-   	int** celdas;
-   	celdas = malloc( filas * sizeof(int*) );
+    bit** celdas;
+    celdas = malloc( filas * sizeof(bit*) );
 
-   	for (int i = 0; i<filas; i++) {
-   		celdas[i] = malloc( columnas * sizeof(int) );
-   	}
+    for (int i = 0; i<filas; i++) {
+      celdas[i] = malloc( columnas * sizeof(bit) );
+    }
 
-   	for (int i = 0; i<filas; i++) {
-   		for (int j = 0; j<columnas; j++) {
-   			celdas[i][j] = 0;
-   		}
-   	}
+    for (int i = 0; i<filas; i++) {
+      for (int j = 0; j<columnas; j++) {
+        celdas[i][j] = 0;
+      }
+    }
 
-  	   FILE *fp;
-   	char fila[5];
-   	char columna[5];
+    FILE *fp;
+    char fila[5];
+    char columna[5];
 
-   	fp = fopen(argv[4], "r");
-   	while (fscanf(fp, "%s %s", fila, columna) == 2) {
-   		celdas[atoi(fila)][atoi(columna)] = 1;
-   	}
-   	fclose(fp);
+    fp = fopen(argv[4], "r");
+    while (fscanf(fp, "%s %s", fila, columna) == 2) {
+      celdas[atoi(fila)][atoi(columna)] = 1;
+    }
+    fclose(fp);
+       
+    ////////////////////
 
-   	for (int i = 0; i<filas; i++) {
-   		for (int j = 0; j<columnas; j++) {
-      		printf("%d ", celdas[i][j]);
-      	}
-      	printf("\n");
-      }   	
+    pm_init(argv[0], 0);
+
+    FILE* fp1;
+    fp1 = fopen("hola.pbm", "w");
+       
+    pbm_writepbm(fp1, celdas, columnas, filas, 1);
+
+    fclose(fp1);
+       
+       
+    ////////////////////
+
+
+    for (int i = 0; i<filas; i++) {
+      for (int j = 0; j<columnas; j++) {
+          printf("%d ", celdas[i][j]);
+        }
+        printf("\n");
+      }     
    }
 }
