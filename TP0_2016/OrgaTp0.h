@@ -33,11 +33,12 @@ static const char* version= "Conway - Version 1.0\n";
 
 unsigned char ** inicializarCeldas(int, int);
 void leerDesdeArchivo(unsigned char**, char*);
-void salidaPm(char* progname, int filas, int columnas, unsigned char** celdas);
-void printMatriz(int , int , unsigned char ** );
+void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char** celdas);
+void printMatriz(int nroIteracion, int , int , unsigned char ** );
 unsigned int verificarEstado(unsigned int ia, unsigned int ja,unsigned int N, unsigned char *a);
 unsigned int RC(unsigned char *a, unsigned int ia, unsigned int j, unsigned int N);
 unsigned int vecinos(unsigned char *a,unsigned int i, unsigned  int j, unsigned  int M, unsigned  int N);
+void conwayStep(unsigned char** celdas, int filas, int columnas);
 
 #endif
 
