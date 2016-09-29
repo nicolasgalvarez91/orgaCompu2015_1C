@@ -8,7 +8,7 @@
  ============================================================================
  */
 
-#include "funciones.h"
+#include "2016.Orga.Tp0.h"
 
 unsigned char** inicializarCeldas(int cantFilas, int cantColumnas) {
 
@@ -30,24 +30,33 @@ unsigned char** inicializarCeldas(int cantFilas, int cantColumnas) {
 }
 
 void leerDesdeArchivo(unsigned char** celdas, char* filename) {
-	  FILE *fp;
+      FILE *fp = NULL;
 	  char fila[5];
 	  char columna[5];
-
-	  fp = fopen(filename, "r");
-	  while (fscanf(fp, "%s %s", fila, columna) == 2) {
-	    celdas[atoi(fila)][atoi(columna)] = 1;
-	  }
+    
+      fp = fopen(filename, "r");
+    
+      if (fp != NULL) {
+        while (fscanf(fp, "%s %s", fila, columna) == 2) {
+            celdas[atoi(fila)][atoi(columna)] = 1;
+        }
+      } else {
+        fprintf(stderr, "Error al abrir el archivo.\n");
+      }
 	  fclose(fp);
 }
 
 void salidaPm(char* progname, int filas, int columnas, unsigned char** celdas) {
     pm_init(progname, 0);
 
-    FILE* fp1;
+    FILE* fp1 = NULL;
     fp1 = fopen("hola.pbm", "w");
-
-    pbm_writepbm(fp1, celdas, columnas, filas, 1);
+    
+    if (fp1 != NULL) {
+        pbm_writepbm(fp1, celdas, columnas, filas, 1);
+    } else {
+        fprintf(stderr, "Error al abrir el archivo.\n");
+    }
 
     fclose(fp1);
 }

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "funciones.h"
+#include "2016.Orga.Tp0.h"
 
 const char* help = "Uso:\n"
     "\tconway -h\n"

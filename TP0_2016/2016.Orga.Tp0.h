@@ -4,8 +4,6 @@
  *  Created on: 28/09/2016
  *      Author: nf
  */
-#ifndef FUNCIONES_H_
-#define FUNCIONES_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,5 +20,4 @@ void printMatriz(int , int , unsigned char ** );
 
 //Para instalar pnm usar sudo apt-get install libnetpbm10-dev
 
-#endif
 
