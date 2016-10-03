@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <netpbm/pbm.h>
+#include <pbm.h>
 
 static const char* help = "Uso:\n"
     "\tconway -h\n"
