@@ -16,11 +16,14 @@ int main( int argc, char *argv[] )  {
         printf("Filas: %d\n", filas);
         printf("Columnas: %d\n", columnas);
                    
-        unsigned char** celdas = inicializarCeldas(filas,columnas);
-                   
-        leerDesdeArchivo(celdas, argv[4]);
+        unsigned char* celdas = inicializarCeldas(filas,columnas);
+        
+        leerDesdeArchivo(celdas, argv[4], columnas);
         
         for (int i = 0; i < iteraciones; i++) {
+            
+            //char* aux = malloc(sizeof(char));
+            //*aux = i+'0';
             
             //salidaPm(aux, argv[0], filas, columnas, celdas);
             
@@ -28,11 +31,9 @@ int main( int argc, char *argv[] )  {
             
             conwayStep(celdas, filas, columnas);
             
+            //free(aux);
         }
         
-        for (int i = 0; i < filas; i++) {
-            free(celdas[i]);
-        }
         free(celdas);
                    
     } else {
