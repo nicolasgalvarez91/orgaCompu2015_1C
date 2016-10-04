@@ -41,3 +41,4 @@ unsigned int vecinos(unsigned char* a,unsigned int i, unsigned  int j, unsigned 
 void conwayStep(unsigned char* celdas, int filas, int columnas);
 
 #endif
+

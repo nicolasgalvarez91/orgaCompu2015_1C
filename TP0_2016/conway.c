@@ -22,16 +22,16 @@ int main( int argc, char *argv[] )  {
         
         for (int i = 0; i < iteraciones; i++) {
             
-            //char* aux = malloc(sizeof(char));
-            //*aux = i+'0';
+            char* aux = malloc(sizeof(char));
+            *aux = i+'0';
             
-            //salidaPm(aux, argv[0], filas, columnas, celdas);
+            salidaPm(aux, argv[0], filas, columnas, celdas);
             
             printMatriz(i, filas, columnas, celdas);
             
             conwayStep(celdas, filas, columnas);
             
-            //free(aux);
+            free(aux);
         }
         
         free(celdas);

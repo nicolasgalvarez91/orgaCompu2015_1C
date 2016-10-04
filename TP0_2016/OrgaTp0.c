@@ -56,13 +56,13 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     
     pm_init(progname, 0);
     
-    /*char* filename = malloc(100 * sizeof(char));
-    filename = "estado_";
+    char* filename = malloc(1000*sizeof(char));
+    strcat(filename, "estado_");
     strcat(filename, nroIteracion);
     strcat(filename, ".pbm");
-    */
+    
     FILE* fp1 = NULL;
-    fp1 = fopen("hola.pbm", "w");
+    fp1 = fopen(filename, "w");
     
     if (fp1 != NULL) {
         pbm_writepbm(fp1, celdasAux, columnas, filas, 1);
