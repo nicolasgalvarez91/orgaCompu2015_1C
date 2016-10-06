@@ -41,7 +41,7 @@ void leerDesdeArchivo(unsigned char* celdas, char* filename, int cantColumnas) {
     fclose(fp);
 }
 
-void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char* celdas) {
+void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char* celdas, char* prefix) {
     unsigned char** celdasAux = malloc(filas* sizeof(unsigned char*));
     
     for (int i = 0; i < filas; i++) {
@@ -57,7 +57,8 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     pm_init(progname, 0);
     
     char* filename = malloc(1000*sizeof(char));
-    strcat(filename, "estado_");
+    strcat(filename, prefix);
+    strcat(filename, "_");
     strcat(filename, nroIteracion);
     strcat(filename, ".pbm");
     
@@ -71,11 +72,11 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     }
     
     fclose(fp1);
-    //free(filename);
     for (int i = 0; i < filas; i++) {
         free(celdasAux[i]);
     }
     free(celdasAux);
+    free(filename);
 }
 
 void printMatriz(int nroIteracion, int filas, int columnas, unsigned char* celdas) {

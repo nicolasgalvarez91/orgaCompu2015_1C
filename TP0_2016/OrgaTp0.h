@@ -33,7 +33,7 @@ static const char* version= "Conway - Version 1.0\n";
 
 unsigned char * inicializarCeldas(int, int);
 void leerDesdeArchivo(unsigned char*, char*, int);
-void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char* celdas);
+void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char* celdas, char* prefix);
 void printMatriz(int nroIteracion, int , int , unsigned char * );
 unsigned int verificarEstado(unsigned int ia, unsigned int ja,unsigned int N, unsigned char *a);
 unsigned int RC(unsigned char *a, unsigned int ia, unsigned int j, unsigned int N, unsigned int flag);
