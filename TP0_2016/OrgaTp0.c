@@ -50,7 +50,11 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
-            celdasAux[i][j] = celdas[(i*columnas)+j];
+            if (((int)celdas[(i*columnas)+j]) == 1) {
+                celdasAux[i][j] = 0;
+            } else {
+                celdasAux[i][j] = 1;
+            }
         }
     }
     
