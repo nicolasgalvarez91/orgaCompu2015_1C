@@ -460,6 +460,7 @@ verificarEstado:
 							#Calculo (ia*N) + ja
 		mulou t0, a0, a2
 		addiu t0, t0, a1
+		mulou t0, t0, 4s
 							#Traigo el valor a[(ia*N) + ja]
 		low t1, t0(a3)
 
