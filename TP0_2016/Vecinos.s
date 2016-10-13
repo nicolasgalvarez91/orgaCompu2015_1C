@@ -1,4 +1,4 @@
-#	Tp1 2do cuatrimestre 2016
+#	Tp0 2do cuatrimestre 2016
 #	Funcion:
 #	unsigned int vecinos (unsigned char *a, unsigned int i, unsigned int j, unsigned int M, unsigned int N);
 #
@@ -460,6 +460,7 @@ verificarEstado:
 							#Calculo (ia*N) + ja
 		mulou t0, a0, a2
 		addiu t0, t0, a1
+		mulou t0, t0, 4
 							#Traigo el valor a[(ia*N) + ja]
 		low t1, t0(a3)
 
