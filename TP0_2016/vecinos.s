@@ -263,7 +263,7 @@ ultimaFila:
 
 
 #	Funcion:
-#	unsigned int vecinos (unsigned char *a, unsigned int ia, unsigned int j, unsigned int N, unsigned int flag)
+#	unsigned int RC (unsigned char *a, unsigned int ia, unsigned int j, unsigned int N, unsigned int flag)
 #
 ################
 # Stack frame: #
