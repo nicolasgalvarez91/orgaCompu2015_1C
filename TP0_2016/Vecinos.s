@@ -1,4 +1,4 @@
-#	Tp0 2do cuatrimestre 2016
+#	Tp1 2do cuatrimestre 2016
 #	Funcion:
 #	unsigned int vecinos (unsigned char *a, unsigned int i, unsigned int j, unsigned int M, unsigned int N);
 #
