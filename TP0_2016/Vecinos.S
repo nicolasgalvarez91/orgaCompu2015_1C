@@ -2,9 +2,7 @@
 #	Funcion:
 #	unsigned int vecinos (unsigned char *a, unsigned int i, unsigned int j, unsigned int M, unsigned int N);
 #
-################
 # Stack frame: #
-################
 # 48 ------------
 #	PADDING
 # 44 ------------
@@ -71,7 +69,7 @@
 		.ent vecinos		#punto de entrada de la funcion
 
 vecinos:
-		subu sp, sp, SF_SIZE		# creo stack frame
+		subu 	sp, sp, SF_SIZE		# creo stack frame
 		sw 	$fp, FP(sp)		# guardo valor de fp
 		sw 	gp, GP(sp)		# guardo valor de gp
 		sw 	ra, RA(sp)		# guardo valor de ra
@@ -99,7 +97,7 @@ vecinos:
 
 		jal t0
 
-		addiu s0,s0,v0		#Agrego el resultado al valor de retorno
+		addu s0,s0,v0		#Agrego el resultado al valor de retorno
 		lw t0, 52(sp) 		#Cargo i para hacer la verificacion
 
 		beq t0,zero,primeraFila 	#Si se esta calculando el vecino de la primera fila
@@ -116,7 +114,7 @@ vecinos:
 
 		lw 	a1, 52(sp)
 		addiu t2,zero,1
-		addiu a1,a1,t2 		#Guardo en a1 i+1
+		addu a1,a1,t2 		#Guardo en a1 i+1
 		lw 	a2, 56(sp)		#Cargo en a2 j
 		lw 	a3, 64(sp)		#Cargo en a3 N
 							#IMPORTANTE VER DE DONDE VIENE EL QUINTO PARAMETRO
@@ -132,7 +130,7 @@ vecinos:
 
 		jal t0
 
-		addiu s0,s0,v0		#Sumo el resultado que va a ser retornado
+		addu s0,s0,v0		#Sumo el resultado que va a ser retornado
 
 		lw 	a0, 48(sp)
 
@@ -154,7 +152,7 @@ vecinos:
 
 		jal t0
 
-		addiu s0,s0,v0
+		addu s0,s0,v0
 
 fin:
 
@@ -168,6 +166,8 @@ fin:
 		addu sp,sp,SF_SIZE
 
 		jr ra
+
+.end vecinos
 
 
 primeraFila:
@@ -192,13 +192,13 @@ primeraFila:
 
 		jal t0
 
-		addiu s0,s0,v0		#Sumo el resultado que va a ser retornado
+		addu s0,s0,v0		#Sumo el resultado que va a ser retornado
 
 		lw 	a0, 48(sp)
 
 		lw 	a1, 52(sp)
 		addiu t2,zero,1
-		addiu a1,a1,t2 		#Guardo en a1 i+1
+		addu a1,a1,t2 		#Guardo en a1 i+1
 		lw 	a2, 56(sp)		#Cargo en a2 j
 		lw 	a3, 64(sp)		#Cargo en a3 N
 							
@@ -214,7 +214,7 @@ primeraFila:
 
 		jal t0
 
-		addiu s0,s0,v0
+		addu s0,s0,v0
 
 		b fin
 
@@ -236,7 +236,7 @@ ultimaFila:
 
 		jal t0
 
-		addiu s0,s0,v0		#Sumo el resultado que va a ser retornado
+		addu s0,s0,v0		#Sumo el resultado que va a ser retornado
 
 		lw 	a0, 48(sp)
 		lw 	a1, 52(sp)
@@ -256,7 +256,7 @@ ultimaFila:
 
 		jal t0
 
-		addiu s0,s0,v0
+		addu s0,s0,v0
 
 		b fin
 		
@@ -330,7 +330,7 @@ continuacion_chequeo_flag:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 							#Preparo para verificarEstado(ia, j-1, N, a)
 		lw a0, 52(sp)
@@ -343,7 +343,7 @@ continuacion_chequeo_flag:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 		b fin_RC
 
@@ -358,7 +358,7 @@ flag_es_cero:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 		b continuacion_chequeo_flag
 
@@ -375,7 +375,7 @@ j_es_cero:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 							#Preparo para verificarEstado(ia, N - 1, N, a)
 		lw a0, 52(sp)
@@ -388,7 +388,7 @@ j_es_cero:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 		b fin_RC
 
@@ -404,7 +404,7 @@ j_N_menos_uno:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 							#Preparo para verificarEstado(ia, j - 1, N, a)
 		lw a0, 52(sp)
@@ -417,7 +417,7 @@ j_N_menos_uno:
 
 		jal t0
 
-		addiu s0, s0, v0
+		addu s0, s0, v0
 
 		b fin_RC
 
@@ -459,10 +459,11 @@ verificarEstado:
 
 							#Calculo (ia*N) + ja
 		mulou t0, a0, a2
-		addiu t0, t0, a1
+		addu t0, t0, a1
 		mulou t0, t0, 4
 							#Traigo el valor a[(ia*N) + ja]
-		low t1, t0(a3)
+		addu t2, t0, a3
+		lb t1, 0(t2)
 
 		beq t1,1,valor_uno
 		move t0, zero
@@ -480,3 +481,5 @@ fin_verificarEstado:
 valor_uno:
 		addiu t0,zero,1
 		b fin_verificarEstado
+
+
