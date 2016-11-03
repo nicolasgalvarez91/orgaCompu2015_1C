@@ -72,7 +72,9 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     
     if (fp1 != NULL) {
         //pbm_writepbm(fp1, celdasAux, columnas, filas, 1);
-	int i;
+        fprintf(fp1, "P1\n");
+        fprintf(fp1, "%d %d\n", filas, columnas);
+	    int i;
         for (i = 0; i < filas; i++) {
             fprintf(fp1, "%s\n", celdasAux[i]);
         }
