@@ -16,8 +16,8 @@ unsigned char* inicializarCeldas(int cantFilas, int cantColumnas) {
     
     unsigned char * celdas;
     celdas = malloc(tamanioTotal * sizeof(unsigned char));
-    
-    for (int i = 0; i < tamanioTotal; i++) {
+    int i;
+    for (i = 0; i < tamanioTotal; i++) {
         celdas[i] = 0;
     }
     
@@ -43,13 +43,14 @@ void leerDesdeArchivo(unsigned char* celdas, char* filename, int cantColumnas) {
 
 void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsigned char* celdas, char* prefix) {
     char** celdasAux = malloc(filas* sizeof(unsigned char*));
-    
-    for (int i = 0; i < filas; i++) {
+    int i;
+    for (i = 0; i < filas; i++) {
         celdasAux[i] = malloc(columnas*sizeof(char));
     }
     
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
+    for (i = 0; i < filas; i++) {
+	int j;
+        for (j = 0; j < columnas; j++) {
             if (((int)celdas[(i*columnas)+j]) == 1) {
                 celdasAux[i][j] = '0';
             } else {
@@ -71,7 +72,8 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     
     if (fp1 != NULL) {
         //pbm_writepbm(fp1, celdasAux, columnas, filas, 1);
-        for (int i = 0; i < filas; i++) {
+	int i;
+        for (i = 0; i < filas; i++) {
             fprintf(fp1, "%s\n", celdasAux[i]);
         }
     } else {
@@ -79,7 +81,7 @@ void salidaPm(char* nroIteracion, char* progname, int filas, int columnas, unsig
     }
     
     fclose(fp1);
-    for (int i = 0; i < filas; i++) {
+    for (i = 0; i < filas; i++) {
         free(celdasAux[i]);
     }
     free(celdasAux);
@@ -98,47 +100,6 @@ void printMatriz(int nroIteracion, int filas, int columnas, unsigned char* celda
     printf("\n");
 }
 
-//Verifica el estado de una posición dada de la matriz.
-unsigned int verificarEstado(unsigned int ia, unsigned int ja,unsigned int N, unsigned char *a) {
-    
-    // Cambie esta linea, Nico, pero igual no logro que salga bien el offset.
-    // Me base en info de esta pagina: http://eli.thegreenplace.net/2015/memory-layout-of-multi-dimensional-arrays/
-    unsigned char valor = a[(ia*N) + ja];
-    //unsigned char valor = *(a + ia + ja*N);
-    if (valor  == 1)
-        return 1;
-    return 0;
-}
-
-//Recorre por columna los valores de la fila ia
-//Flag: 1 si esta en la fila de la celda original, 0 sino. Esto es para evitar que se cuente a si misma en caso de esa celda tener valor 1.
-unsigned int RC(unsigned char *a, unsigned int ia, unsigned int j, unsigned int N, unsigned int flag){
-    int s = 0;
-    if (flag == 0) {
-        s += verificarEstado(ia, j, N, a);
-    }
-    if (j == 0)
-        s += verificarEstado(ia, j + 1, N, a) + verificarEstado(ia, N - 1, N, a);
-    else if (j == N - 1)
-        s += verificarEstado(ia, 0, N, a) + verificarEstado(ia, j - 1, N, a);
-    else
-        s += verificarEstado(ia, j+1, N, a) + verificarEstado(ia, j - 1, N, a);
-    
-    return s;
-}
-
-unsigned int vecinos(unsigned char* a,unsigned int i, unsigned  int j, unsigned  int M, unsigned  int N) {
-    unsigned int s = 0;
-    s += RC(a,i, j, N, 1);
-    if (i == 0)
-        s += RC(a, M - 1, j, N, 0) + RC(a, i + 1, j, N, 0);
-    else if (i==M-1)
-        s += RC(a, 0, j, N, 0) + RC(a, i - 1, j, N, 0);
-    else
-        s += RC(a, i+1, j, N, 0) + RC(a, i - 1, j, N, 0);
-    
-    return s;
-}
 
 void conwayStep(unsigned char* celdas, int filas, int columnas) {
     
@@ -147,8 +108,9 @@ void conwayStep(unsigned char* celdas, int filas, int columnas) {
     celdasAux = malloc((filas*columnas) * sizeof(unsigned char));
     
     // Hago las modificaciones necesarias celda por celda y guardo el resultante en la matriz auxiliar de celdas.
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
+    int i,j;
+    for (i = 0; i < filas; i++) {
+        for (j = 0; j < columnas; j++) {
             //printf("Pos: %d,%d = %d\n", i, j,vecinos(celdas, i, j, filas, columnas));
             if (vecinos(celdas, i, j, filas, columnas) < 2 || vecinos(celdas, i, j, filas, columnas) > 3) {
                 celdasAux[(i*columnas)+j] = 0;
@@ -163,8 +125,9 @@ void conwayStep(unsigned char* celdas, int filas, int columnas) {
     }
     
     // Por ultimo, asigno todos los valores de la auxiliar a la original.
-    for (int m = 0; m < filas; m++) {
-        for (int n = 0; n < columnas; n++) {
+    int m,n;
+    for (m = 0; m < filas; m++) {
+        for (n = 0; n < columnas; n++) {
             celdas[(m*columnas)+n] = celdasAux[(m*columnas)+n];
         }
     }

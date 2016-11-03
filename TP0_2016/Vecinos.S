@@ -58,12 +58,15 @@
 #include <mips/regdef.h>
 #include <sys/syscall.h>
 #
+.data ## Data declaration section
+## String to be printed:
+out_string: .asciiz "\nHello, World!\n"
 		.text   		#comienzo del código
 		.align 2		#alineacion 2^2
 		
-		.set noreorder
-		.cpload t9
-		.set reorder
+		#.set noreorder
+		#.cpload t9
+		#.set reorder
 		
 		.globl vecinos 	#funcion publica
 		.ent vecinos		#punto de entrada de la funcion
@@ -76,6 +79,10 @@ vecinos:
 		sw	s0,	S0(sp)
 		move 	$fp, sp
 
+		sw 	a0, 48(sp)		
+		sw 	a1, 52(sp)		
+		sw 	a2, 56(sp)		
+		sw 	a3, 60(sp)	
 							#Preparo el stack para llamar a RC(a,i,j,N,1)
 		lw 	a0, 48(sp)		#Cargo a
 		lw 	a1, 52(sp)		#Cargo i
@@ -83,10 +90,7 @@ vecinos:
 		lw 	a3, 64(sp)		#Cargo N
 		addiu t1, zero,1
 
-		sw 	a0, A0(sp)		
-		sw 	a1, A1(sp)		
-		sw 	a2, A2(sp)	
-		sw 	a3, A3(sp)
+
 		sw 	t1, A4(sp)
 				
 
@@ -302,6 +306,10 @@ RC:
 		sw	s0,	S0(sp)
 		move $fp, sp
 
+		sw 	a0, 48(sp)		
+		sw 	a1, 52(sp)		
+		sw 	a2, 56(sp)		
+		sw 	a3, 60(sp)
 		move s0,zero 		#Uso s0 para el valor de retorno
 		lw t0, 64(sp)		#Cargo el flag en t0 para hacer la verificacion
 
@@ -458,18 +466,24 @@ verificarEstado:
 		move $fp, sp
 
 							#Calculo (ia*N) + ja
+		
 		mulou t0, a0, a2
+		
 		addu t0, t0, a1
-		mulou t0, t0, 4
+		addiu t5, zero, 4
+		#mul t0, t0, t5
+		
 							#Traigo el valor a[(ia*N) + ja]
 		addu t2, t0, a3
 		lb t1, 0(t2)
+
 
 		beq t1,1,valor_uno
 		move t0, zero
 
 fin_verificarEstado:
 		move v0,t0
+
 
 		lw $fp,4(sp)
 		lw gp,0(sp)

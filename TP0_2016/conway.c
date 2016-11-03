@@ -51,8 +51,8 @@ int main( int argc, char *argv[] )  {
         unsigned char* celdas = inicializarCeldas(filas,columnas);
         
         leerDesdeArchivo(celdas, filename, columnas);
-        
-        for (int i = 0; i < iteraciones; i++) {
+        int i;
+        for (i = 0; i < iteraciones; i++) {
             
             char* aux = malloc(sizeof(char));
             *aux = i+'0';
